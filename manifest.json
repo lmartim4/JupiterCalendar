@@ -1,12 +1,42 @@
 {
-
-	"name":"Caixa Alta",
-	"version":"1.0",
-	"description":"Faz a caixa alta",
-	"browser_action":{ 
-		"default_popup":"index.html"
+	"name": "JupiterCalendar",
+	"version": "0.1",
+	"author": "Licio",
+	"description": "Cria a grade horária do Júpiter no Google Agenda",
+	"browser_action": {
+		"default_title": "Jupiter + Calendar",
+		"default_popup": "popup.html"
 	},
-	
-	"manifest_version":2
-
+	"content_scripts": [
+		{
+			"matches": [
+				"https://uspdigital.usp.br/jupiterweb/gradeHoraria*"
+			],
+			"js": [
+				"background.js"
+			]
+		}
+	],
+	"background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": false
+	},
+	"oauth2": {
+		"client_id": "314252821021-th46h88fqd4l4baejht8rlcra67akn0o.apps.googleusercontent.com",
+		"scopes": [
+			"profile email",
+			"https://www.googleapis.com/auth/calendar",
+			"https://www.googleapis.com/auth/calendar.readonly"
+		]
+	},
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjojulA8Rl+dfLF36JeNBmtn2DAcAKHdddvi7V6Ek8oHUa8UMzR6Zw7ZwYrJCZqWXczylIBmXcz9TWrfkb0pZCz0CxlL78gx3BFhq2hzS3ItBC8iHVxrp+OxfL5zhN2DkzJbxYoa9poIP6QLIqdCL0Knqh7bkG03koMEN9Fwsamt5VP5ngIfNdc1tPnP8h3kdvZtHXBxtOrk0h6NZ/nZgqxkKQxclmMqivFxdOi0Z12/PrKkEox/GBG9mvs9V9YSXjtRmcddypL5yDCxOBmfDV6xN60mML+gx7SkrFC2gTApXpbwuZJjApv4E4d60/SX6jBaAcqT/9c8m3HYI9P8cEwIDAQAB",
+	"content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
+	"permissions": [
+		"tabs",
+		"identity",
+		"identity.email"
+	],
+	"manifest_version": 2
 }
