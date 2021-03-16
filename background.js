@@ -3,15 +3,34 @@ const aulas = [];
 const lerGrade = setInterval(() => {
 	const tabela = document.querySelector("#tableGradeHoraria");
 	if (tabela) {
+		const divCabeca = document.querySelector(".ui-jqgrid-titlebar")
+		addCalendarButton(divCabeca)
 		if (saveToArray(tabela)) {
 			console.log("Grade lida com sucesso");
 			clearInterval(lerGrade);
 		}
 	} else {
-		console.log("Tentando ler a tabela em 5 segundos");
+		console.log("Tentando ler a tabela em 1 segundo");
 	}
-}, 5000)
+}, 1000)
 
+
+function addCalendarButton(div) {
+	console.log(div);
+	const button = document.createElement("button");
+	button.innerHTML = "<strong>Google Agenda</strong>";
+	button.classList.add("ui-jqgrid-title");
+	button.style.backgroundColor = "Transparent";
+	//button.style.backgroundImage = "radial-gradient(circle, #F7B64D, #F6AF3A)";
+	button.style.border = "none";
+	button.style.color = "#4285F4";
+	button.style.marginTop = "-1px";
+	button.style.marginLeft = "15px";
+	button.style.borderRadius = "15";
+	/*
+	button.style.height = "15px";*/
+	div.appendChild(button);
+}
 
 function saveToArray(tabela) {
 	var tbody = tabela.querySelector("tbody");
@@ -40,7 +59,7 @@ function saveToArray(tabela) {
 		}, 500)
 		return true;
 	} else {
-		console.log("Tentando ler a tabela em 5 segundos");
+		console.log("Tentando ler a tabela em 1 segundo");
 		return false;
 	}
 }
@@ -51,30 +70,30 @@ function criarMateria(a, i, f, d) {
 		inicio: i,
 		fim: f,
 		dia: d,
-		getCalendarEvent() {
-			return {
-				'summary': this.nome,
-				'location': 'Universidade de São Paulo',
-				'description': `Aula de ` + this.nome,
-				'start': {
-					'dateTime': "2021-04-12T" + this.inicio + ":00-03:00",
-					'timeZone': 'America/Sao_Paulo'
-				},
-				'end': {
-					'dateTime': "2021-04-12T" + this.fim + ":00-03:00",
-					'timeZone': 'America/Sao_Paulo'
-				},
-				'recurrence': [
-					'RRULE:FREQ=WEEKLY;COUNT=16'
-				],
-				'reminders': {
-					'useDefault': false,
-					'overrides': [
-						{ 'method': 'popup', 'minutes': 15 }
-					]
-				}
+		event: {
+			'summary': a,
+			'location': 'Universidade de São Paulo',
+			'description': `Aula de ` + a,
+			'start': {
+				'dateTime': "2021-04-12T" + i + ":00-03:00",
+				'timeZone': 'America/Sao_Paulo'
+			},
+			'end': {
+				'dateTime': "2021-04-12T" + f + ":00-03:00",
+				'timeZone': 'America/Sao_Paulo'
+			},
+			'recurrence': [
+				'RRULE:FREQ=WEEKLY;COUNT=1' //MUDAR PARA 16
+			],
+			'colorId': (Math.floor((Math.random() * 11)) + 1),
+			'reminders': {
+				'useDefault': false,
+				'overrides': [
+					{ 'method': 'popup', 'minutes': 15 }
+				]
 			}
 		}
+
 	}
 }
 

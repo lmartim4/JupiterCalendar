@@ -6,10 +6,12 @@
         body {
             height: auto;
             width: 350;
-            background-image: radial-gradient(circle, #F7B64D, #f5c578);
+            background-image: radial-gradient(circle, #F7B64D, #db9a31);
             text-align: center;
         }
-
+        .status {
+            color: rgb(88, 91, 92);
+        }
         .materia {
             background: white;
             color: rgb(28, 148, 196);
@@ -22,16 +24,9 @@
 </head>
 
 <body>
-    <h1>Jupiterweb + Calendar</h1>
-    <h2>Status: Not Loaded</h2>
-
-    <div id="ListaDeMaterias">
-        <div class="materia">
-            Alguma coisa em uma linha
-        </div>
-        <!--Add buttons to initiate auth sequence and sign out-->
-    </div>
-    <div id="x" value="m">Something</div>
+    <h1>Jupiterweb + Agenda</h1>
+    <h2 id="Status" class = "status">Grade não carregada</h2>
+    <div id="ListaDeMaterias"></div>
 </body>
 <script src="https://apis.google.com/js/client.js?onload=onGAPILoad"></script>
 
