@@ -8,14 +8,42 @@
             width: 350;
             background-image: radial-gradient(circle, #F7B64D, #db9a31);
             text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
+
+        h1 {
+            font-size: 18px;
+            height: min-content;
+        }
+
         .status {
-            color: rgb(88, 91, 92);
+            color: rgb(253, 18, 18);
+            font-size: 19;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        .config {
+            color: rgb(28, 148, 196);
+            background-color: white;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 10px;
+            border: 3px solid rgb(255, 255, 255);
+            text-align: center;
+            align-self: center;
+        }
+
+        .btnAdd {
+            margin-top: 15px;
+            color: rgb(28, 148, 196);
+            background: white;
+            border-color: rgb(28, 148, 196);
+            border-radius: 10;
+        }
+
         .materia {
             background: white;
             color: rgb(28, 148, 196);
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: 12pt;
             border: 1px solid rgb(28, 148, 196);
         }
@@ -25,8 +53,21 @@
 
 <body>
     <h1>Jupiterweb + Agenda</h1>
-    <h2 id="Status" class = "status">Grade não carregada</h2>
-    <div id="ListaDeMaterias"></div>
+    <div class="status">
+        <p><strong>Recebendo grade do Jupiterweb...</strong></p>
+    </div>
+
+    <div id="MateriasEncontradas" style="display: none;">
+        <p>Essas Materias já estão na sua agenda. Quer adiciona-las mesmo assim?</p>
+        <input type="checkbox" id="overwrite">MAT2455</input>
+        <input type="checkbox" id="overwrite">PSI5461</input>
+    </div>
+    <div id="ListaDeMaterias" style="display: none;">
+        <p>Essas Materias não foram encontradas na sua agenda. Gostaria de não adicionar alguma?</p>
+    </div>
+    <button id="addToCalendar" class="btnAdd" style="display: none;">
+        Adicionar selecionadas
+    </button>
 </body>
 <script src="https://apis.google.com/js/client.js?onload=onGAPILoad"></script>
 

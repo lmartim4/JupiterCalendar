@@ -13,15 +13,12 @@
 				"https://uspdigital.usp.br/jupiterweb/gradeHoraria*"
 			],
 			"js": [
-				"background.js"
+				"content.js"
 			]
 		}
 	],
 	"background": {
-		"scripts": [
-			"background.js"
-		],
-		"persistent": false
+		"service_worker": "background.js"
 	},
 	"oauth2": {
 		"client_id": "314252821021-th46h88fqd4l4baejht8rlcra67akn0o.apps.googleusercontent.com",
@@ -36,7 +33,8 @@
 	"permissions": [
 		"tabs",
 		"identity",
-		"identity.email"
+		"identity.email",
+		"storage"
 	],
 	"manifest_version": 2
 }
