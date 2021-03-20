@@ -54,19 +54,17 @@
 <body>
     <h1>Jupiterweb + Agenda</h1>
     <div class="status">
-        <p><strong>Recebendo grade do Jupiterweb...</strong></p>
+        <p><strong></strong>Recebendo grade do Jupiterweb...</strong></p>
     </div>
 
-    <div id="MateriasEncontradas" style="display: none;">
+    <div id="MateriasEncontradas">
         <p>Essas Materias já estão na sua agenda. Quer adiciona-las mesmo assim?</p>
-        <input type="checkbox" id="overwrite">MAT2455</input>
-        <input type="checkbox" id="overwrite">PSI5461</input>
     </div>
-    <div id="ListaDeMaterias" style="display: none;">
+    <div id="MateriasNaoEncontradas" style="color: black;">
         <p>Essas Materias não foram encontradas na sua agenda. Gostaria de não adicionar alguma?</p>
     </div>
-    <button id="addToCalendar" class="btnAdd" style="display: none;">
-        Adicionar selecionadas
+    <button id="addToCalendar" class="btnAdd">
+        Adicionar Materias Selecionadas
     </button>
 </body>
 <script src="https://apis.google.com/js/client.js?onload=onGAPILoad"></script>

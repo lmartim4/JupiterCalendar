@@ -65,6 +65,7 @@ function materiaNoVetor(a, i, f, d) {
 			inicio: i,
 			fim: f,
 			dia: d,
+			adicionado: false,
 			event: {
 				'summary': a,
 				'location': 'Universidade de São Paulo',

@@ -1,4 +1,11 @@
 let gradeHoraria = [];
+var adicionado;
+var naoadicionado;
+
+document.addEventListener("DOMContentLoaded", function (event) {
+	adicionado = document.querySelector("#MateriasEncontradas");
+	naoadicionado = document.querySelector("#MateriasNaoEncontradas");
+});
 
 /* ------------------ Google API Loading --------------------*/
 const API_KEY = 'AIzaSyDYk0hS2ajuG0xnT0eIkz-Rb8zzZZHHxWA';
@@ -30,6 +37,10 @@ chrome.runtime.onMessage.addListener(
 			gradeHoraria = request.gradeHoraria;
 			console.log(request)
 			sendResponse({ msg: "done" })
+			//a();
+
+			//enviarParaAgenda();
+			lerAgendaUsuario();
 		}
 	}
 );
@@ -41,6 +52,7 @@ function addEventToHTML(event) {
 	toAdd.innerHTML = event.summary;
 	toAdd.classList.add("materia")
 	lista.appendChild(toAdd);
+	console.log("Adding: " + event);
 }
 
 //Pedir Grade ao Background
@@ -53,13 +65,67 @@ function pedirGradeHoraria() {
 	});
 }
 
+function lerAgendaUsuario() {
+	setTimeout(function () {
+		gapi.client.calendar.events.list({
+			'calendarId': 'primary',
+			'timeMin': (new Date()).toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'maxResults': 200,
+			'orderBy': 'startTime'
+		}).then(function (response) {
+			var events = response.result.items;
+			console.log('Achamos ' + events.length + " eventos. Checando se pertencem à grade");
+
+			if (events.length > 0) {
+				for (i = 0; i < events.length; i++) {
+					for (const aula of gradeHoraria) {
+						if (events[i].summary == aula.nome) {
+							aula.adicionado = true;
+							console.log("Materia ja encontrada");
+							continue;
+						}
+					}
+				}
+			} else {
+				console.log('No upcoming events found.');
+			}
+			addAulaPosChecagem();
+		});
+	}, 600);
+}
+function addAulaPosChecagem() {
+	console.log("Working? ");
+	for (const aula of gradeHoraria) {
+		console.log("Working? " + aula.nome);
+		var divNova = document.createElement("div");
+		var caixa = document.createElement("input");
+
+		var label = document.createElement('label');
+
+		label.appendChild(document.createTextNode(aula.nome));
+
+		caixa.type = "checkbox";
+		caixa.id = "materia";
+
+		caixa.checked = !aula.adicionado;
+		divNova.appendChild(caixa);
+		divNova.appendChild(label);
+		if (aula.adicionado) {
+			adicionado.appendChild(divNova);
+		} else {
+			naoadicionado.appendChild(divNova);
+		}
+	}
+}
 //enviar para a agenda
 function enviarParaAgenda() {
-	var status = document.querySelector("#Status");
+	var status = document.querySelector("#status");
 	status.innerHTML = "Carregando grade à Agenda"
 	let time = 0;
 
-	for (const aula of aulas) {
+	for (const aula of gradeHoraria) {
 		setTimeout(function () {
 			var request = gapi.client.calendar.events.insert({
 				'calendarId': 'primary',
@@ -75,5 +141,5 @@ function enviarParaAgenda() {
 	setTimeout(function () {
 		status.innerHTML = "Grade carregada à Agenda"
 	}, time += 500);
-
 }
+
